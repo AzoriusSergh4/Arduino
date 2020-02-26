@@ -7,6 +7,11 @@ int photocell = 0;
 int redValue;
 int greenValue;
 int blueValue;
+
+//Cotas
+#define LOWERBOUND 150
+#define UPPERBOUND 660
+#define MAXRGB 255 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -20,9 +25,16 @@ void setup() {
 
 void loop() {
   photocell = analogRead(sensor);
-  if(photocell < 256){
-      greenValue = 0+photocell;
-      blueValue = 255-photocell;
+  if(photocell <= LOWERBOUND){
+      blueValue = 255;
+      analogWrite(BLUE, blueValue);
+      Serial.print("AZUL: ");
+      Serial.println(blueValue);
+    }
+  if(photocell > LOWERBOUND && photocell <= LOWERBOUND+MAXRGB){
+    photocell = photocell - LOWERBOUND;
+      greenValue = 0 + photocell;
+      blueValue = MAXRGB - photocell;
       analogWrite(GREEN, greenValue);
       analogWrite(BLUE, blueValue);
        Serial.print("AZUL: ");
@@ -30,8 +42,8 @@ void loop() {
       Serial.print("VERDE: ");
       Serial.println(greenValue);  
   }
-  if(photocell>255 && photocell < 511){
-    photocell = photocell-256;
+  if(photocell>LOWERBOUND+MAXRGB && photocell <= UPPERBOUND){
+    photocell = photocell-MAXRGB-LOWERBOUND;
     redValue = 0+photocell;
     greenValue= 255-photocell;
     analogWrite(GREEN, greenValue);
@@ -41,7 +53,7 @@ void loop() {
       Serial.print("VERDE: ");
       Serial.println(greenValue);  
   }
-  if(photocell > 510){
+  if(photocell > UPPERBOUND){
     redValue = 255;
     analogWrite(RED, redValue);
     Serial.print("ROJO: ");
