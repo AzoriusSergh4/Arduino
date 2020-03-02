@@ -1,8 +1,3 @@
-// IMPORTANT: ELEGOO_TFTLCD LIBRARY MUST BE SPECIFICALLY
-// CONFIGURED FOR EITHER THE TFT SHIELD OR THE BREAKOUT BOARD.
-// SEE RELEVANT COMMENTS IN Elegoo_TFTLCD.h FOR SETUP.
-//Technical support:goodtft@163.com
-
 #include <Elegoo_GFX.h>    // Core graphics library
 #include <Elegoo_TFTLCD.h> // Hardware-specific library
 
@@ -30,10 +25,10 @@
 // (on the 2-row header at the end of the board).
 
 // Assign human-readable names to some common 16-bit color values:
-#define	BLACK   0x0000
-#define	BLUE    0x001F
-#define	RED     0xF800
-#define	GREEN   0x07E0
+#define  BLACK   0x0000
+#define BLUE    0x001F
+#define RED     0xF800
+#define GREEN   0x07E0
 #define CYAN    0x07FF
 #define MAGENTA 0xF81F
 #define YELLOW  0xFFE0
@@ -44,21 +39,21 @@ Elegoo_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
 // a simpler declaration can optionally be used:
 // Elegoo_TFTLCD tft;
 
-void setup(void) {
+void setup() {
   Serial.begin(9600);
   Serial.println(F("TFT LCD test"));
 
 #ifdef USE_Elegoo_SHIELD_PINOUT
-  Serial.println(F("Using Elegoo 2.4\" TFT Arduino Shield Pinout"));
+  Serial.println(F("Using Elegoo 2.8\" TFT Arduino Shield Pinout"));
 #else
-  Serial.println(F("Using Elegoo 2.4\" TFT Breakout Board Pinout"));
+  Serial.println(F("Using Elegoo 2.8\" TFT Breakout Board Pinout"));
 #endif
 
   Serial.print("TFT size is "); Serial.print(tft.width()); Serial.print("x"); Serial.println(tft.height());
 
   tft.reset();
 
-   uint16_t identifier = tft.readID();
+  uint16_t identifier = tft.readID();
    if(identifier == 0x9325) {
     Serial.println(F("Found ILI9325 LCD driver"));
   } else if(identifier == 0x9328) {
@@ -75,13 +70,7 @@ void setup(void) {
   {     
       identifier=0x9341;
        Serial.println(F("Found 0x9341 LCD driver"));
-  }
-  else if(identifier==0x1111)
-  {     
-      identifier=0x9328;
-       Serial.println(F("Found 0x9328 LCD driver"));
-  }
-  else {
+  }else {
     Serial.print(F("Unknown LCD driver chip: "));
     Serial.println(identifier, HEX);
     Serial.println(F("If using the Elegoo 2.8\" TFT Arduino shield, the line:"));
@@ -90,59 +79,20 @@ void setup(void) {
     Serial.println(F("If using the breakout board, it should NOT be #defined!"));
     Serial.println(F("Also if using the breakout, double-check that all wiring"));
     Serial.println(F("matches the tutorial."));
-    identifier=0x9328;
+    identifier=0x9341;
   
   }
+  
   tft.begin(identifier);
+  tft.fillScreen(YELLOW);
+  tft.fillRect(0,0,75,tft.height(),MAGENTA);
+  tft.fillRect(tft.width()-75, 0, tft.width(),tft.height(),RED);
 
- 
 }
 
-void loop(void) {
-   tft.fillScreen(BLACK);
-  unsigned long start = micros();
-  tft.setCursor(0, 0);
-  
-  tft.setTextColor(RED);  tft.setTextSize(1);
-  tft.println("Hello World!");
-  tft.println(1000);
-  tft.println(0xDEADBEEF, HEX);
-  tft.println();
-  tft.println();
-  tft.setTextColor(GREEN); tft.setTextSize(2);
-   tft.println("Hello World!");
-  tft.println(01234.56789);
-  tft.println(0xDEADBEEF, HEX);
-  tft.println();
-  tft.println();
-  
-  tft.setTextColor(BLUE);    tft.setTextSize(3);
-   tft.println("Hello World!");
-  tft.println(01234.56789);
-  tft.println(0xDEADBEEF, HEX);
-  
-  tft.setTextColor(WHITE);    tft.setTextSize(4);
-   tft.println("Hello!");
-   tft.setTextColor(YELLOW);    tft.setTextSize(5);
-   tft.println("Hello!");
-   tft.setTextColor(RED);    tft.setTextSize(6);
-   tft.println("Hello!");
-  tft.println();
-  tft.println();
-  /*
-  tft.println();
-  tft.setTextColor(GREEN);
-  tft.setTextSize(5);
-  tft.println("Groop");
-  tft.setTextSize(2);
-  tft.println("I implore thee,");
-  tft.setTextSize(1);
-  tft.println("my foonting turlingdromes.");
-  tft.println("And hooptiously drangle me");
-  tft.println("with crinkly bindlewurdles,");
-  tft.println("Or I will rend thee");
-  tft.println("in the gobberwarts");
-  tft.println("with my blurglecruncheon,");
-  tft.println("see if I don't!");*/
-  delay(1000);delay(1000);delay(1000);delay(1000);delay(1000);
+
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
 }

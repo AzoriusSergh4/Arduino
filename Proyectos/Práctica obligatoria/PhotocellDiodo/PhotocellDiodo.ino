@@ -25,6 +25,8 @@ void setup() {
 
 void loop() {
   photocell = analogRead(sensor);
+  Serial.print("SENSOR: ");
+  Serial.println(photocell);
   if(photocell <= LOWERBOUND){
       blueValue = 255;
       analogWrite(BLUE, blueValue);

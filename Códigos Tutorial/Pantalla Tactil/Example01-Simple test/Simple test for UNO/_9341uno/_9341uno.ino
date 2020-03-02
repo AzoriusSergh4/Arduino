@@ -224,8 +224,9 @@ void setup()
 void loop()
 {  
    LCD_Clear(0xf800);
-   LCD_Clear(0x07E0);
-   LCD_Clear(0x001F);
+  // LCD_Clear(0x07E0);
+  //LCD_Clear(0x001F);
+   LCD_Clear(0xFFE0);
   /*   
   for(int i=0;i<1000;i++)
   {
