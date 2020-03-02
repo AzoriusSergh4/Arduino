@@ -1,6 +1,7 @@
 #include <Elegoo_GFX.h>    // Core graphics library
 #include <Elegoo_TFTLCD.h> // Hardware-specific library
 
+
 // The control pins for the LCD can be assigned to any digital or
 // analog pins...but we'll use the analog pins as this allows us to
 // double up the pins with the touch screen (see the TFT paint example).
@@ -35,9 +36,6 @@
 #define WHITE   0xFFFF
 
 Elegoo_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
-// If using the shield, all control and data lines are fixed, and
-// a simpler declaration can optionally be used:
-// Elegoo_TFTLCD tft;
 
 void setup() {
   Serial.begin(9600);
@@ -84,9 +82,43 @@ void setup() {
   }
   
   tft.begin(identifier);
-  tft.fillScreen(YELLOW);
-  tft.fillRect(0,0,75,tft.height(),MAGENTA);
-  tft.fillRect(tft.width()-75, 0, tft.width(),tft.height(),RED);
+  tft.fillScreen(BLACK);
+  tft.drawRect(79,9,152,302,WHITE);
+
+  tft.drawRect(10,60,60,
+  40,WHITE);
+  tft.drawRect(10,160,60,100,WHITE);
+
+  tft.setCursor(15,65);
+  tft.setTextColor(WHITE);
+  tft.setTextSize(1);
+  tft.println("Score:");
+  tft.setCursor(15,80);
+  tft.println(0);
+  
+  tft.fillRect(80,10,15,15,YELLOW);
+  tft.fillRect(95,25,15,15,RED);
+  tft.fillRect(110,40,15,15,YELLOW);
+  tft.fillRect(125,55,15,15,RED);
+  tft.fillRect(140,70,15,15,YELLOW);
+  tft.fillRect(155,85,15,15,RED);
+  tft.fillRect(170,100,15,15,YELLOW);
+  tft.fillRect(185,115,15,15,RED);
+  tft.fillRect(200,130,15,15,YELLOW);
+  tft.fillRect(215,145,15,15,RED);
+  tft.fillRect(80,160,15,15,YELLOW);
+  tft.fillRect(95,175,15,15,RED);
+  tft.fillRect(110,190,15,15,YELLOW);
+  tft.fillRect(125,205,15,15,RED);
+  tft.fillRect(140,220,15,15,YELLOW);
+  tft.fillRect(155,235,15,15,RED);
+  tft.fillRect(170,250,15,15,YELLOW);
+  tft.fillRect(185,265,15,15,RED);
+  tft.fillRect(200,280,15,15,YELLOW);
+  tft.fillRect(215,295,15,15,RED);
+  
+  
+  
 
 }
 
